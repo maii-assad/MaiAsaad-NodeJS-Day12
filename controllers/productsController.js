@@ -20,7 +20,8 @@ const addProduct = async (req, res) => {
       if (!description || !price || !id || !title || !quantity) {
         return res.status(400).json({ message: "All fields are required" })
       }
-      const newProduct = new productData({ description, price, id, title, quantity })
+      const productsData = await product.find.length()
+      const newProduct = new productData({ description, price, id: productsData.length + 1, title, quantity })
       await newProduct.save();
 
       res.status(201).json({ message: "Product added", product: newProduct })
@@ -79,5 +80,6 @@ const updateProduct = async (req, res) => {
 }
 
 module.exports = { getAllProducts, addProduct, getProductById, deleteProduct, updateProduct}
+
 
 
